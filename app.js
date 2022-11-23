@@ -7,9 +7,13 @@
 let arrStack = []
 let maxStack = 10
 let timeInterval = 5
+let score = 0
+let boolNxtLevel = false
+
+let scorePara = document.querySelector("p")
 
 async function generateWord() {
-    let endpoint = "https://random-word-api.herokuapp.com/word"
+    let endpoint = "https://random-words-api.herokuapp.com/w?n=1"
     return await fetch(endpoint).then((response) => {
         return response.json()
     })
@@ -23,20 +27,25 @@ async function generateWord() {
 const wait = delay => new Promise(resolve => setTimeout(resolve, delay));
 
 async function pushWord() {
-        let newWord = await generateWord()
-        arrStack.push(...newWord)
-        console.log("Insert word")
+    console.log("Insert word")
+    let newWord = await generateWord()
+    arrStack.push(...newWord)
 }
 
-function nextLevel(score){
-    return (score % 5) == 0
+function nextLevel(score) {
+    return ((score % 5) == 0)
 }
 
 async function start() {
+    // setInterval(() => {
+    //     if (score != 0 && nextLevel(score)) {
+    //         timeInterval -= 0.5
+    //         console.log('decrement interval: ' + timeInterval)
+    //         boolNxtLevel = false
+    //     }
+    // }, 0.5)
     while (arrStack.length != maxStack) {
-        if(nextLevel(score))
-            timeInterval -= 0.05
-        await wait(timeInterval*1000).then(pushWord())
+        await wait(timeInterval * 1000).then(pushWord())
         console.log(arrStack)
     }
     alert("game over")
@@ -48,19 +57,31 @@ console.log("Trigger after start")
 
 function checkWord(word) {
     console.log("Before check word: " + arrStack)
-    arrStack = arrStack.filter(function (x) {
-        return x != word
-    })
+    let wordIndex = arrStack.indexOf(word)
+    console.log(wordIndex)
+    if (wordIndex != -1) {
+        score++
+        scorePara.innerHTML = score
+        arrStack.splice(wordIndex, 1)
+        // arrStack = arrStack.filter(function (x) {
+        //     return x != word
+        // })
+        if (score != 0 && nextLevel(score)) {
+            timeInterval -= 0.5
+            console.log('decrement interval: ' + timeInterval)
+        }
+    }
     console.log("After check word: " + arrStack)
 }
 
 function inputSubmit(event) {
     let inputText = document.querySelector("input")
     console.log("Text :" + inputText.value)
-    if(!inputText.value)
+    if (!inputText.value)
         return
     checkWord(inputText.value)
     inputText.value = ""
+
 }
 
 let form = document.querySelector("form")
