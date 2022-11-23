@@ -50,6 +50,9 @@ function initialize() {
     arrStack = []
     let startElement = document.querySelector('.start')
     startElement.classList.add('display-none')
+    let ggElement = document.querySelector(".gameOver")
+    if (!ggElement.classList.contains("display-none"))
+        ggElement.classList.add("display-none");
 }
 
 async function start() {
