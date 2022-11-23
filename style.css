@@ -1,0 +1,82 @@
+@font-face {
+    font-family: myFirstFont;
+    src: url(ChargeVectorBold-mLyD9.ttf);
+}
+
+* {
+    font-family: myFirstFont;
+}
+
+body {
+    background: linear-gradient(360deg, #BBD2C5, #536976, #292E49);
+    color: white;
+    min-height: 100vh;
+}
+
+.header {
+    font-size: 3em;
+}
+
+.marquee_code {
+
+    /* height:200px; */
+    text-align: center;
+    height: auto;
+    width: 775px;
+    background-color: FAFAFA;
+    font-family: Helvetica;
+    font-size: 18pt;
+    color: FF9061;
+    border-width: 2px;
+    border-style: 0;
+    border-color: DEB8DD;
+    overflow: hidden;
+}
+
+.container {
+    display: grid;
+    grid-template-areas:
+        "score list"
+        "answer answer";
+}
+
+.score {
+    grid-area: "score";
+}
+
+.center {
+    min-height: 50vh;
+    grid-area: "list";
+}
+
+.text-center {
+    text-align: center;
+    grid-area: "answer";
+    grid-column: span 2;
+}
+
+.display-none {
+    display: none;
+}
+
+.gameOver {
+    border-radius: 10px;
+    position: absolute;
+    top: 25%;
+    left: 0;
+    right: 0;
+    background: red;
+    text-align: center;
+    color: white;
+    padding: 25px;
+}
+
+.start {
+    border-radius: 10px;
+    position: absolute;
+    top: 25%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 25px;
+}

@@ -6,16 +6,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <form onsubmit="return false">
-        <h2>Typing Game</h2>
-        <p></p>
-        <input name="userInput" type="text" value="" />
-        <input type="submit">
-        <script src="app.js"></script>
-    </form>
+    <h2 class="header">Typing Game</h2>
+    <div class="container">
+        <p class="score">Score: <span>0</span></p>
+        <center class="center">
+            <marquee class="marquee_code" direction="down" behavior="slide" scrollamount="0" overflow: hidden;>
+            </marquee>
+        </center>
+        <h3 class="text-center"></h3>
+    </div>
+    <div class="start">
+        <button onclick="start()">Start</button>
+    </div>
+
+    <div class="gameOver display-none">
+        <h1>Game Over</h1>
+        <h3>Score: <span>0</span></h3>
+        <button onclick="start()">Play Again</button>
+    </div>
+    <script src="app.js"></script>
 </body>
 
 </html>
