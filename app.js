@@ -6,6 +6,7 @@
 
 let arrStack = []
 let maxStack = 10
+let timeInterval = 5
 
 async function generateWord() {
     let endpoint = "https://random-word-api.herokuapp.com/word"
@@ -19,20 +20,31 @@ async function generateWord() {
         })
 }
 
+const wait = delay => new Promise(resolve => setTimeout(resolve, delay));
+
 async function pushWord() {
-    while (arrStack.length != maxStack) {
         let newWord = await generateWord()
         arrStack.push(...newWord)
-    }
-    console.log(arrStack)
+        console.log("Insert word")
+}
+
+function nextLevel(score){
+    return (score % 5) == 0
 }
 
 async function start() {
-    pushWord()
+    while (arrStack.length != maxStack) {
+        if(nextLevel(score))
+            timeInterval -= 0.05
+        await wait(timeInterval*1000).then(pushWord())
+        console.log(arrStack)
+    }
+    alert("game over")
 }
 
 // remove when integrate with UI
 start()
+console.log("Trigger after start")
 
 function checkWord(word) {
     console.log("Before check word: " + arrStack)
@@ -45,6 +57,8 @@ function checkWord(word) {
 function inputSubmit(event) {
     let inputText = document.querySelector("input")
     console.log("Text :" + inputText.value)
+    if(!inputText.value)
+        return
     checkWord(inputText.value)
     inputText.value = ""
 }
